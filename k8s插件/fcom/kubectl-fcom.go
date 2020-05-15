@@ -1,11 +1,11 @@
 package main
 
 import (
-	"github.com/mritd/promptx"
-	"os/exec"
-	"fmt"
 	"bufio"
+	"fmt"
+	"github.com/mritd/promptx"
 	"os"
+	"os/exec"
 )
 
 type CommandType string
@@ -15,7 +15,7 @@ const (
 	GETPOD CommandType = "getpod"
 	GETALL CommandType = "getall"
 	GETPV  CommandType = "getpv"
-	GETPVC  CommandType = "getpvc"
+	GETPVC CommandType = "getpvc"
 )
 
 type TypeCommand struct {
@@ -26,11 +26,12 @@ type TypeCommand struct {
 
 func main() {
 	CommandMsg := []TypeCommand{
-		{CommandName: GETLOG, ZHDescription: "获取podlog", K8sCommand: "请输入PodName"},
-		{CommandName: GETPOD, ZHDescription: "获取pod详情", K8sCommand: "kubectl get pod -o wide"},
 		{CommandName: GETALL, ZHDescription: "获取all详情", K8sCommand: "kubectl get pod -o wide --all-namespaces"},
-		{CommandName: GETPV, ZHDescription: "获取pv详情", K8sCommand: "kubectl get pv"},
-		{CommandName: GETPVC, ZHDescription: "获取pvc详情", K8sCommand: "kubectl get pvc"},
+		{CommandName: GETPOD, ZHDescription: "获取svc详情", K8sCommand: "kubectl get svc --all-namespaces"},
+		{CommandName: GETPOD, ZHDescription: "获取ns详情", K8sCommand: "kubectl get ns --all-namespaces"},
+		{CommandName: GETPV, ZHDescription: "获取pv详情", K8sCommand: "kubectl get pv --all-namespaces"},
+		{CommandName: GETPVC, ZHDescription: "获取pvc详情", K8sCommand: "kubectl get pvc --all-namespaces"},
+		{CommandName: GETLOG, ZHDescription: "获取podlog", K8sCommand: "请输入PodName"},
 	}
 	cfg := &promptx.SelectConfig{
 		ActiveTpl:    "» {{ .CommandName | cyan }} ({{ .K8sCommand | cyan }})",
@@ -53,19 +54,19 @@ func main() {
 
 	selectCommand := s.Run()
 	// 打印出k8s命令
-	if(CommandMsg[selectCommand].CommandName == GETLOG ) {
+	if CommandMsg[selectCommand].CommandName == GETLOG {
 		fmt.Println("请输入podname：")
 		input := bufio.NewScanner(os.Stdin)
 		input.Scan()
 		fmt.Println("你输入的是：", input.Text())
-		cmd := fmt.Sprintf("kubectl describe pod %s | grep \"Namespace\"|awk '{print $2}'",input.Text())
+		cmd := fmt.Sprintf("kubectl describe pod %s | grep \"Namespace\"|awk '{print $2}'", input.Text())
 		fmt.Println(cmd)
 		out, err := exec_shell(cmd)
 		if err != nil {
 			fmt.Println(err)
 		}
 		fmt.Println(out)
-	}else {
+	} else {
 		out, err := exec_shell(CommandMsg[selectCommand].K8sCommand)
 		if err != nil {
 			fmt.Println(err)
@@ -75,11 +76,10 @@ func main() {
 
 }
 
-func exec_shell(com string) (string ,error){
+func exec_shell(com string) (string, error) {
 	command := com
 	cmd := exec.Command("/bin/bash", "-c", command)
-	bytes,err := cmd.Output()
+	bytes, err := cmd.Output()
 	resp := string(bytes)
-	return resp,err
+	return resp, err
 }
-
