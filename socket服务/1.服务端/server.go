@@ -78,7 +78,7 @@ func ServerMsgHandler(conn net.Conn, clientid int) {
 
 		Msg := tmpbuf
 		//向客户端发送消息
-		go WriteMsgToClient(conn)
+		go sendMsgToClient(conn, "123456")
 
 		beatch := make(chan byte)
 		//心跳计时，默认30秒
@@ -103,10 +103,9 @@ func HeartBeat(conn net.Conn, heartChan chan byte, timeout int) {
 }
 
 //服务端向客户端发送心跳
-func WriteMsgToClient(conn net.Conn) {
-	talk := "心跳包"
+func sendMsgToClient(conn net.Conn, msg string) {
 	//将信息封包
-	smsg := protocol.Enpack([]byte(talk))
+	smsg := protocol.Enpack([]byte(msg))
 	conn.Write(smsg)
 }
 
