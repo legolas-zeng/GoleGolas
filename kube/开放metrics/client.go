@@ -3,6 +3,8 @@ package main
 import (
 	"fmt"
 	"github.com/Unknwon/goconfig"
+	"github.com/prometheus/client_golang/prometheus"
+	"github.com/prometheus/client_golang/prometheus/promhttp"
 	"io/ioutil"
 	"log"
 	"net/http"
@@ -13,9 +15,29 @@ type Cmd struct {
 	FileName string
 }
 
+var (
+	cpuTemp = prometheus.NewGauge(prometheus.GaugeOpts{
+		Name: "cpu_temperature_celsius",
+		Help: "Current temperature of the CPU.",
+	})
+	hdFailures = prometheus.NewCounterVec(
+		prometheus.CounterOpts{
+			Name: "hd_errors_total",
+			Help: "Number of hard-disk errors.",
+		},
+		[]string{"device"},
+	)
+)
+
+func init() {
+	// Metrics have to be registered to be exposed:
+	prometheus.MustRegister(cpuTemp)
+	prometheus.MustRegister(hdFailures)
+}
+
 func main() {
-	cfg, err := goconfig.LoadConfigFile("D:\\GoleGolas\\kube\\开放metrics\\conf.ini")
-	//cfg, err := goconfig.LoadConfigFile("/root/conf.ini")
+	//cfg, err := goconfig.LoadConfigFile("D:\\GoleGolas\\kube\\开放metrics\\conf.ini")
+	cfg, err := goconfig.LoadConfigFile("/root/conf.ini")
 	fmt.Println(cfg)
 	if err != nil {
 		log.Println("读取配置文件失败:", err)
@@ -29,6 +51,11 @@ func main() {
 		return
 	}
 	//url := "http://127.0.0.1:8000/handle"
+	cpuTemp.Set(65.3)
+	hdFailures.With(prometheus.Labels{"device": "/dev/sda"}).Inc()
+	http.Handle("/metrics", promhttp.Handler())
+	//log.Fatal(http.ListenAndServe(":8888", nil))
+
 	http.HandleFunc("/", func(w http.ResponseWriter, _ *http.Request) {
 		resp, err := http.Get(url)
 

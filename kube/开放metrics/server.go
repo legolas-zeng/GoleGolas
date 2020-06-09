@@ -22,7 +22,7 @@ func main() {
 		fmt.Fprint(w, time.Now().Format("2006-01-02 15:04:05"))
 	})
 	log.Print("服务启动完成.....")
-	log.Fatal(http.ListenAndServe(":8000", nil))
+	log.Fatal(http.ListenAndServe(":8001", nil))
 }
 
 //打开 http://127.0.0.1:8000/home
