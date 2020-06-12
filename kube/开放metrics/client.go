@@ -4,10 +4,12 @@ import (
 	"fmt"
 	"github.com/Unknwon/goconfig"
 	"github.com/prometheus/client_golang/prometheus"
+	"github.com/prometheus/client_golang/prometheus/promauto"
 	"github.com/prometheus/client_golang/prometheus/promhttp"
 	"io/ioutil"
 	"log"
 	"net/http"
+	"time"
 )
 
 type Cmd struct {
@@ -15,18 +17,38 @@ type Cmd struct {
 	FileName string
 }
 
+func recordMetrics() {
+	go func() {
+		for {
+			opsProcessed.Inc()
+			time.Sleep(2 * time.Second)
+		}
+	}()
+}
+
 var (
-	cpuTemp = prometheus.NewGauge(prometheus.GaugeOpts{
-		Name: "cpu_temperature_celsius",
-		Help: "Current temperature of the CPU.",
-	})
+	cpuTemp = prometheus.NewGauge(
+		prometheus.GaugeOpts{
+			Name: "cpu_temperature_celsius",
+			Help: "CPU当前温度.",
+		})
 	hdFailures = prometheus.NewCounterVec(
 		prometheus.CounterOpts{
 			Name: "hd_errors_total",
-			Help: "Number of hard-disk errors.",
+			Help: "硬盘错误计数.",
 		},
 		[]string{"device"},
 	)
+	http_request_total = promauto.NewCounter(
+		prometheus.CounterOpts{
+			Name: "http_request_total",
+			Help: "已处理的http请求的总数",
+		})
+	opsProcessed = promauto.NewCounter(
+		prometheus.CounterOpts{
+			Name: "myapp_processed_ops_total",
+			Help: "已处理事件的总数",
+		})
 )
 
 func init() {
@@ -36,8 +58,9 @@ func init() {
 }
 
 func main() {
-	//cfg, err := goconfig.LoadConfigFile("D:\\GoleGolas\\kube\\开放metrics\\conf.ini")
-	cfg, err := goconfig.LoadConfigFile("/root/conf.ini")
+	recordMetrics()
+	cfg, err := goconfig.LoadConfigFile("D:\\GoleGolas\\kube\\开放metrics\\conf.ini")
+	//cfg, err := goconfig.LoadConfigFile("/root/conf.ini")
 	fmt.Println(cfg)
 	if err != nil {
 		log.Println("读取配置文件失败:", err)
@@ -57,6 +80,7 @@ func main() {
 	//log.Fatal(http.ListenAndServe(":8888", nil))
 
 	http.HandleFunc("/", func(w http.ResponseWriter, _ *http.Request) {
+		http_request_total.Inc()
 		resp, err := http.Get(url)
 
 		if err != nil {

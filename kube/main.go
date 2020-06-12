@@ -15,7 +15,7 @@ type fooCollector struct {
 
 func newFooCollector() *fooCollector {
 	m1 := make(map[string]string)
-	m1["env"] = "prod"
+	m1["env"] = "测试pod"
 	v := []string{"hostname"}
 	return &fooCollector{
 		fooMetric: prometheus.NewDesc("fff_metrics", "Show metrics a for mysql", nil, nil),
@@ -26,13 +26,13 @@ func newFooCollector() *fooCollector {
 // 检测cpu温度
 var cpuTemp = prometheus.NewGauge(prometheus.GaugeOpts{
 	Name: "cpu_temperature_celsius",
-	Help: "Current temperature of the CPU.",
+	Help: "CPU当前温度.",
 })
 
 var hdFailures = prometheus.NewCounterVec(
 	prometheus.CounterOpts{
 		Name: "hd_errors_total",
-		Help: "Number of hard-disk errors.",
+		Help: "硬盘错误计数.",
 	},
 	[]string{"device"},
 )
@@ -40,7 +40,7 @@ var hdFailures = prometheus.NewCounterVec(
 var http_request_total = promauto.NewCounter(
 	prometheus.CounterOpts{
 		Name: "http_request_total",
-		Help: "The total number of processed http requests",
+		Help: "已处理的http请求的总数",
 	},
 )
 
@@ -57,7 +57,7 @@ func (collect *fooCollector) Collect(ch chan<- prometheus.Metric) {
 		metricValue = 1
 	}
 	ch <- prometheus.MustNewConstMetric(collect.fooMetric, prometheus.GaugeValue, metricValue)
-	ch <- prometheus.MustNewConstMetric(collect.barMetric, prometheus.CounterValue, metricValue, "kk")
+	ch <- prometheus.MustNewConstMetric(collect.barMetric, prometheus.CounterValue, metricValue, "本地测试机")
 }
 
 func init() {

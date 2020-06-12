@@ -42,7 +42,7 @@ func (c *Metrics) Describe(ch chan<- *prometheus.Desc) {
  * 功能：抓取最新的数据，传递给channel
  */
 func (c *Metrics) Collect(ch chan<- prometheus.Metric) {
-	var pod = pod{}
+	//var pod = pod{}
 	c.mutex.Lock() // 加锁
 	defer c.mutex.Unlock()
 	// do something ,add metric to channel

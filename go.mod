@@ -8,6 +8,7 @@ require (
 	github.com/Unknwon/goconfig v0.0.0-20191126170842-860a72fb44fd // indirect
 	github.com/aceld/zinx v0.0.0-20200315073925-f09df55dc746 // indirect
 	github.com/astaxie/beego v1.12.1 // indirect
+	github.com/gin-gonic/gin v1.6.3
 	github.com/go-ole/go-ole v1.2.4 // indirect
 	github.com/go-sql-driver/mysql v1.5.0
 	github.com/mritd/promptx v0.0.0-20191026063319-27892afe8e3a // indirect

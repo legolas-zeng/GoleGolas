@@ -64,7 +64,7 @@ func performBackup() (int, error) {
 func ExamplePusher_Add() {
 	registry := prometheus.NewRegistry()
 	registry.MustRegister(completionTime, duration, records)
-	pusher := push.New("http://192.168.3.16:9091", "db_backup").Gatherer(registry)
+	pusher := push.New("http://192.168.3.16:9091", "db_backup2").Gatherer(registry)
 	start := time.Now()
 	n, err := performBackup()
 	records.Set(float64(n))
