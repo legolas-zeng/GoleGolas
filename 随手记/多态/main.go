@@ -39,9 +39,27 @@ func test(a annimal) {
 }
 
 func main() {
+	//var a annimal
+	//a = HelloKitty{}
+	//test(a)
+	//a = husky{}
+	//test(a)
 	var a annimal
 	a = HelloKitty{}
-	test(a)
-	a = husky{}
-	test(a)
+	var b annimal
+	b = husky{}
+
+	var animals [2]annimal = [...]annimal{a, b}
+
+	for _, v := range animals {
+		if data, ok := v.(husky); ok {
+			data.eat()
+			fmt.Println("this is wangcai : ")
+		}
+		if data, ok := v.(HelloKitty); ok {
+			data.eat()
+			fmt.Println("this is HelloKitty : ")
+		}
+	}
+
 }
