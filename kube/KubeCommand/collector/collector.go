@@ -46,5 +46,5 @@ func (c *Metrics) Collect(ch chan<- prometheus.Metric) {
 	c.mutex.Lock() // 加锁
 	defer c.mutex.Unlock()
 	// do something ,add metric to channel
-	ch <- prometheus.MustNewConstMetric(c.metrics["pod_network_receive_bytes"], prometheus.CounterValue, 0, "node-exporter-gl84b", "default", "192.168.3.17")
+	ch <- prometheus.MustNewConstMetric(c.metrics["pod_network_receive_bytes"], prometheus.CounterValue, 0, "node-KubeCommand-gl84b", "default", "192.168.3.17")
 }

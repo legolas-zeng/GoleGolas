@@ -5,7 +5,7 @@ import (
 	"log"
 	"net/http"
 
-	"GoleGolas/kube/exporter/collector"
+	"GoleGolas/kube/KubeCommand/collector"
 
 	"github.com/prometheus/client_golang/prometheus"
 	"github.com/prometheus/client_golang/prometheus/promhttp"
