@@ -252,10 +252,5 @@ func (m Mysql) Delete() error {
 func main() {
 	m1 := Mysql{Sql: "select * from jiulianshan2 limit 10;"}
 	fmt.Println(m1.Query())
-	m2 := Mysql{
-		Sql:  nil,
-		Data: Info{},
-	}
-	m2.Insert()
 
 }

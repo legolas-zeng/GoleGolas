@@ -5,6 +5,8 @@
     <content url="file://D:/GetXiaoDai" />
     <content url="file://$MODULE_DIR$" />
     <content url="file://D:/RemoteCon" />
+    <content url="file://D:/XiaoDaiSys" />
+    <content url="file://D:/kube-dashboard" />
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
   </component>

@@ -11,9 +11,20 @@ require (
 	github.com/gin-gonic/gin v1.6.3
 	github.com/go-ole/go-ole v1.2.4 // indirect
 	github.com/go-sql-driver/mysql v1.5.0
+	github.com/godror/godror v0.17.0 // indirect
+	github.com/imdario/mergo v0.3.9 // indirect
 	github.com/mritd/promptx v0.0.0-20191026063319-27892afe8e3a // indirect
 	github.com/mxi4oyu/MoonSocket v0.0.0-20171018115308-f30174ba192f // indirect
 	github.com/prometheus/client_golang v1.6.0
 	github.com/shiena/ansicolor v0.0.0-20151119151921-a422bbe96644 // indirect
-	k8s.io/apimachinery v0.18.1 // indirect
+	golang.org/x/oauth2 v0.0.0-20200107190931-bf48bf16ab8d // indirect
+	golang.org/x/time v0.0.0-20200416051211-89c76fbcd5d1 // indirect
+	k8s.io/api v0.17.0
+	k8s.io/apimachinery v0.17.0
+	k8s.io/client-go v0.17.0
+	//k8s.io/apimachinery v0.18.2
+	//k8s.io/client-go v0.18.2
+	//k8s.io/api v0.18.2
+	k8s.io/utils v0.0.0-20200619165400-6e3d28b6ed19 // indirect
+	sigs.k8s.io/structured-merge-diff v0.0.0-20190525122527-15d366b2352e // indirect
 )

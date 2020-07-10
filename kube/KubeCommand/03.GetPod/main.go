@@ -44,7 +44,7 @@ func GetPodList(clientset *kubernetes.Clientset, nsname string) {
 }
 
 func GetPodInfo(clientset *kubernetes.Clientset, podname string) {
-	pod, err := clientset.CoreV1().Pods("default").Get(podname, metav1.GetOptions{})
+	pod, err := clientset.CoreV1().Pods("monitoring").Get(podname, metav1.GetOptions{})
 	if err != nil {
 		panic(err)
 	}
@@ -82,8 +82,8 @@ func main() {
 
 	// create the clientset
 	clientset, err := kubernetes.NewForConfig(config)
-	GetPodList(clientset, "default")
-	GetPodInfo(clientset, "algorithm-deploy-98d6fd68b-464jh")
+	GetPodList(clientset, "monitoring")
+	GetPodInfo(clientset, "alertmanager-rrjc-prometheus-prometheus-alertmanager-0")
 
 	if err != nil {
 		log.Fatal(err)

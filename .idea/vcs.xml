@@ -4,5 +4,6 @@
     <mapping directory="$PROJECT_DIR$/../GetXiaoDai" vcs="Git" />
     <mapping directory="$PROJECT_DIR$" vcs="Git" />
     <mapping directory="$PROJECT_DIR$/../RemoteCon" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/../kube-dashboard" vcs="Git" />
   </component>
 </project>

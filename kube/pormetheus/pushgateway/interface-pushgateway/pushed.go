@@ -63,14 +63,20 @@ func test() {
 	a["过程"] = "abcdef"
 }
 
-func main() {
-
-	info := Info{job: "db_backup", Name: "db_backup_records_processed", Help: "在上次数据库备份中处理的记录数", value: 123456}
-
-	Work(info)
-}
+//func main() {
+//
+//	info := Info{job: "db_backup", Name: "db_backup_records_processed", Help: "在上次数据库备份中处理的记录数", value: 123456}
+//
+//	Work(info)
+//}
 
 //func main() {
 //	p1:=Info{job:"db_backup",Name:"db_backup_records_processed",Help:"在上次数据库备份中处理的记录数",value:123456}
 //	p1.sent()
 //}
+
+func main() {
+	var p Pushs
+	p = Info{job: "db_backup", Name: "db_backup_records_processed", Help: "在上次数据库备份中处理的记录数", value: 123456}
+	p.sent()
+}
