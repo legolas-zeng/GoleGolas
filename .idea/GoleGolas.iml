@@ -7,6 +7,10 @@
     <content url="file://D:/RemoteCon" />
     <content url="file://D:/XiaoDaiSys" />
     <content url="file://D:/kube-dashboard" />
+    <content url="file://F:/kubernetes/CRD" />
+    <content url="file://F:/kubernetes/istio" />
+    <content url="file://F:/kubernetes/kubebuilder" />
+    <content url="file://F:/下载/crddemo-master" />
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
   </component>
