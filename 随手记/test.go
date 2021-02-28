@@ -555,47 +555,82 @@ func calc(index string, a, b int) int {
 //	fmt.Println(missingNumber([]int{0, 1, 2, 3, 4, 5, 6, 8, 9}))
 //}
 
-func QuickSort(nums []int) []int {
-	// 思路：把一个数组分为左右两段，左段小于右段
-	quickSort(nums, 0, len(nums)-1)
-	return nums
+//func QuickSort(nums []int) []int {
+//	// 思路：把一个数组分为左右两段，左段小于右段
+//	quickSort(nums, 0, len(nums)-1)
+//	return nums
+//
+//}
+//
+//// 原地交换，所以传入交换索引
+//func quickSort(nums []int, start, end int) {
+//	if start < end {
+//		// 分治法：divide
+//		pivot := partition(nums, start, end)
+//		quickSort(nums, 0, pivot-1)
+//		quickSort(nums, pivot+1, end)
+//	}
+//}
+//
+//// 分区
+//func partition(nums []int, start, end int) int {
+//	// 选取最后一个元素作为基准pivot
+//	p := nums[end]
+//	i := start
+//	// 最后一个值就是基准所以不用比较
+//	for j := start; j < end; j++ {
+//		if nums[j] < p {
+//			swap(nums, i, j)
+//			i++
+//		}
+//	}
+//	// 把基准值换到中间
+//	swap(nums, i, end)
+//	return i
+//}
+//
+//// 交换两个元素
+//func swap(nums []int, i, j int) {
+//	t := nums[i]
+//	nums[i] = nums[j]
+//	nums[j] = t
+//}
+//
+//func main() {
+//	fmt.Println(QuickSort([]int{2, 6, 5, 4, 3, 1}))
+//}
 
-}
+//func main() {
+//	var x int = 100
+//	fmt.Println(unsafe.Sizeof(x)) // 8
+//	var y int64 = 1
+//	fmt.Println(unsafe.Sizeof(y)) // 8
+//	var y1 int32 = 1
+//	fmt.Println(unsafe.Sizeof(y1)) // 4
+//	var z uint64 = 1
+//	fmt.Println(unsafe.Sizeof(z)) // 8
+//	var z1 uint32 = 1
+//	fmt.Println(unsafe.Sizeof(z1)) // 4
+//	i := uint(1)
+//	fmt.Println(unsafe.Sizeof(i)) // 8
+//	j := float64(4.11)
+//	fmt.Println(unsafe.Sizeof(j)) // 8
+//	a := string("123666")
+//	fmt.Println(unsafe.Sizeof(a)) // 16
+//	c := bool(true)
+//	fmt.Println(unsafe.Sizeof(c)) // 1
+//}
 
-// 原地交换，所以传入交换索引
-func quickSort(nums []int, start, end int) {
-	if start < end {
-		// 分治法：divide
-		pivot := partition(nums, start, end)
-		quickSort(nums, 0, pivot-1)
-		quickSort(nums, pivot+1, end)
-	}
-}
+var wg sync.WaitGroup
 
-// 分区
-func partition(nums []int, start, end int) int {
-	// 选取最后一个元素作为基准pivot
-	p := nums[end]
-	i := start
-	// 最后一个值就是基准所以不用比较
-	for j := start; j < end; j++ {
-		if nums[j] < p {
-			swap(nums, i, j)
-			i++
-		}
-	}
-	// 把基准值换到中间
-	swap(nums, i, end)
-	return i
-}
-
-// 交换两个元素
-func swap(nums []int, i, j int) {
-	t := nums[i]
-	nums[i] = nums[j]
-	nums[j] = t
+func cat() {
+	fmt.Println("cat")
+	defer wg.Done()
 }
 
 func main() {
-	fmt.Println(QuickSort([]int{2, 6, 5, 4, 3, 1}))
+	wg.Add(100)
+	go cat()
+	wg.Wait()
+
 }
