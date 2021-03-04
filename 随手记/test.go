@@ -50,6 +50,7 @@ package main
 import (
 	"fmt"
 	"runtime"
+	"strconv"
 	"sync"
 	"time"
 )
@@ -621,16 +622,130 @@ func calc(index string, a, b int) int {
 //	fmt.Println(unsafe.Sizeof(c)) // 1
 //}
 
-var wg sync.WaitGroup
+//func main() {
+//
+//	var str = "hello 你好"
+//	//golang中string底层是通过byte数组实现的，座椅直接求len 实际是在按字节长度计算  所以一个汉字占3个字节算了3个长度
+//	fmt.Println("len(str):", len(str))
+//	s := map[int]string{
+//		1: "123",
+//	}
+//	a := make(map[int]string)
+//	//以下两种都可以得到str的字符串长度
+//
+//	//golang中的unicode/utf8包提供了用utf-8获取长度的方法
+//	fmt.Println("RuneCountInString:", utf8.RuneCountInString(str))
+//
+//	//通过rune类型处理unicode字符
+//	fmt.Println("rune:", len([]rune(str)))
+//	for k, v := range str {
+//		fmt.Printf("v type: %T\n", v)
+//		fmt.Printf("k type: %T\n", k)
+//		fmt.Println(v, k)
+//	}
+//	fmt.Println("rune:", len([]rune(str)))
+//
+//}
 
-func cat() {
-	fmt.Println("cat")
-	defer wg.Done()
+//func main() {
+//	ss := []string{
+//		"ado",
+//		"duzhenxun",
+//		"小手25是什么",
+//		"来个长点的字符串，微信号5552123",
+//	}
+//	tmpArr := map[int32]int{}
+//	for k, v := range []int32(ss[1]) {
+//		fmt.Println(k, v)
+//		fmt.Println(tmpArr)
+//		if tmpArr[v] != 0 && len(tmpArr) > 0 {
+//			fmt.Println(v)
+//			fmt.Println("有重复")
+//			break
+//		}
+//		tmpArr[v] = k
+//	}
+//}
+
+//func main() {
+//	var num01 int = 0b1100
+//	var num02 int = 0o14
+//	var num03 int = 0xC
+//
+//	fmt.Printf("2进制数 %b 表示的是: %d \n", num01, num01)
+//	fmt.Printf("8进制数 %o 表示的是: %d \n", num02, num02)
+//	fmt.Printf("16进制数 %X 表示的是: %d \n", num03, num03)
+//}
+
+// 定义一个接口
+type Good interface {
+	settleAccount() int
+	orderInfo() string
 }
 
+type Phone struct {
+	name     string
+	quantity int
+	price    int
+}
+
+func (phone Phone) settleAccount() int {
+	return phone.quantity * phone.price
+}
+func (phone Phone) orderInfo() string {
+	return "您要购买" + strconv.Itoa(phone.quantity) + "个" +
+		phone.name + "计：" + strconv.Itoa(phone.settleAccount()) + "元"
+}
+
+type FreeGift struct {
+	name     string
+	quantity int
+	price    int
+}
+
+func (gift FreeGift) settleAccount() int {
+	return 0
+}
+func (gift FreeGift) orderInfo() string {
+	return "您要购买" + strconv.Itoa(gift.quantity) + "个" +
+		gift.name + "计：" + strconv.Itoa(gift.settleAccount()) + "元"
+}
+
+func calculateAllPrice(goods []Good) int {
+	var allPrice int
+	for _, good := range goods {
+		fmt.Println(good.orderInfo())
+		allPrice += good.settleAccount()
+	}
+	return allPrice
+}
 func main() {
-	wg.Add(100)
-	go cat()
-	wg.Wait()
+	iPhone := Phone{
+		name:     "iPhone",
+		quantity: 1,
+		price:    8000,
+	}
+	earphones := FreeGift{
+		name:     "耳机",
+		quantity: 1,
+		price:    200,
+	}
 
+	goods := []Good{iPhone, earphones}
+	allPrice := calculateAllPrice(goods)
+	fmt.Printf("该订单总共需要支付 %d 元", allPrice)
 }
+
+//var wg sync.WaitGroup
+//
+//func cat() {
+//	fmt.Println("cat")
+//	defer wg.Done()
+//}
+//
+//func main() {
+//	wg.Add(100)
+//	go cat()
+//	wg.Wait()
+//
+//}
