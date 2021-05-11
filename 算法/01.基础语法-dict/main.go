@@ -26,4 +26,6 @@ func main() {
 	dict4[1] = an
 
 	fmt.Println(dict, dict2, dict3, dict4)
+	delete(dict3, 2)
+	fmt.Println(dict3)
 }
