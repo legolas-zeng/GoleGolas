@@ -20,7 +20,6 @@ func main() {
 		1: "string",
 	}
 	dict3[2] = "123"
-
 	dict4 = make(map[int]*animal)
 	an := &animal{id: 1, name: "dog"}
 	dict4[1] = an
