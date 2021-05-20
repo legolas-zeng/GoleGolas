@@ -1,6 +1,8 @@
 package main
 
-import "fmt"
+import (
+	"fmt"
+)
 
 //给定一个包含 n 个整数的数组 nums，判断 nums 中是否存在三个元素 a，b，c ，使得 a + b + c = 0 ？找出所有满足条件且不重复的三元组。
 //
@@ -37,14 +39,32 @@ func eqnumber(arrlist [][]int) {
 	for i := 0; i < len(arrlist); i++ {
 		for j := i + 1; j < len(arrlist); j++ {
 			fmt.Println(arrlist[i][0], arrlist[i][1], arrlist[i][2], "vs", arrlist[j][0], arrlist[j][1], arrlist[j][2])
-			for m := 0; m < 3; m++ {
-				for n := 0; n < 3; n++ {
-					if arrlist[i][m] == arrlist[j][n] {
-						fmt.Println("元素相同")
-
-					}
-				}
-			}
+			sumzero(arrlist[i], arrlist[j])
 		}
 	}
+}
+
+func sumzero(a []int, b []int) {
+	for i := 0; i < 3; i++ {
+		if !do(a[i], b) {
+			fmt.Println("不是相同的")
+			break
+		} else {
+			fmt.Println("重复的")
+		}
+	}
+}
+
+func do(n int, arr []int) bool {
+	var re bool
+	//fmt.Println("判断：", n, arr)
+	for i := 0; i < len(arr); i++ {
+		if arr[i] == n {
+			re = true
+			break
+		} else {
+			re = false
+		}
+	}
+	return re
 }
