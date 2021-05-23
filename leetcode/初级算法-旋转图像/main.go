@@ -12,14 +12,16 @@ import "fmt"
 /////////////////暴力算法///////////////////////
 func rotate(matrix [][]int) {
 	lenarr := len(matrix[0])
+	tmparr := [][]int{}
 	for i := 0; i < lenarr; i++ {
 		tmp := []int{}
 		//使用辅助数组
 		for j := 0; j < lenarr; j++ {
 			tmp = append(tmp, matrix[lenarr-j-1][i])
 		}
-		fmt.Println(tmp)
+		tmparr = append(tmparr, tmp)
 	}
+	fmt.Println(tmparr)
 }
 
 /////////////////翻转/////////////////////////
@@ -42,11 +44,14 @@ func rotate2(matrix [][]int) {
 }
 
 func main() {
-	matrix := [][]int{
-		{5, 1, 9, 11},
-		{2, 4, 8, 10},
-		{13, 3, 6, 7},
-		{15, 14, 12, 16},
+	//matrix := [][]int{
+	//	{5, 1, 9, 11},
+	//	{2, 4, 8, 10},
+	//	{13, 3, 6, 7},
+	//	{15, 14, 12, 16},
+	//}
+	matrix1 := [][]int{
+		{1, 2, 3}, {4, 5, 6}, {7, 8, 9},
 	}
-	rotate2(matrix)
+	rotate(matrix1)
 }
