@@ -9,15 +9,36 @@ import "fmt"
 //输入：matrix = [[5,1,9,11],[2,4,8,10],[13,3,6,7],[15,14,12,16]]
 //输出：[[15,13,2,5],[14,3,4,1],[12,6,8,9],[16,7,10,11]]
 
+/////////////////暴力算法///////////////////////
 func rotate(matrix [][]int) {
 	lenarr := len(matrix[0])
 	for i := 0; i < lenarr; i++ {
 		tmp := []int{}
+		//使用辅助数组
 		for j := 0; j < lenarr; j++ {
 			tmp = append(tmp, matrix[lenarr-j-1][i])
 		}
 		fmt.Println(tmp)
 	}
+}
+
+/////////////////翻转/////////////////////////
+//先上下翻转，再对角线翻转
+func rotate2(matrix [][]int) {
+	lenarr := len(matrix[0])
+	//上下翻转
+	for i := 0; i < lenarr/2; i++ {
+		matrix[i], matrix[lenarr-i-1] = matrix[lenarr-i-1], matrix[i]
+	}
+	fmt.Println(matrix)
+	//对角线翻转
+	for i := 0; i < lenarr; i++ {
+		for j := 0; j < i; j++ {
+			//沿对角线替换，所以是j<i
+			matrix[i][j], matrix[j][i] = matrix[j][i], matrix[i][j]
+		}
+	}
+	fmt.Println(matrix)
 }
 
 func main() {
@@ -27,5 +48,5 @@ func main() {
 		{13, 3, 6, 7},
 		{15, 14, 12, 16},
 	}
-	rotate(matrix)
+	rotate2(matrix)
 }
