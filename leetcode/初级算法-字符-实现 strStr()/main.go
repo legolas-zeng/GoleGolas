@@ -25,20 +25,19 @@ func strStr(haystack string, needle string) int {
 		hashmap = append(hashmap, haystack[j])
 	}
 	fmt.Println(hashmap)
-	for n := 0; n < len(haystack)-len(needle); n++ {
-
-		if needle[0] == haystack[n] {
-			fmt.Println("第一个相同的元素：", haystack[n])
-			for m := 0; m < len(needle); m++ {
-				if needle[m] == haystack[n] {
-					fmt.Println(needle[m], haystack[n])
-					n++
-				}
-				return -1
+outer:
+	for n := 0; n <= len(haystack)-len(needle); n++ {
+		for m := 0; m < len(needle); m++ {
+			if needle[m] != haystack[n+m] {
+				fmt.Println(string(rune(needle[m])))
+				fmt.Println(string(rune(haystack[n+m])))
+				continue outer
 			}
 		}
+		return n
+
 	}
-	return 0
+	return -1
 }
 
 ////////////////////////////////////////////////
@@ -46,20 +45,25 @@ func strStr2(haystack, needle string) int {
 	n := len(haystack)
 	m := len(needle)
 outer:
+	//用更多的haystack去循环遍历needle，只需要遍历到haystack的倒数needle长度的地方就行。
 	for i := 0; i <= n-m; i++ {
+		//拿needle的数据跟haystack一个一个对比
 		for j := range needle {
 			fmt.Println(haystack[i+j], needle[j])
+			//判断这几个数字是否相等，不相等就继续比较
 			if haystack[i+j] != needle[j] {
 				continue outer
 			}
 		}
+		//当比较的都是相等的时候，跳出for循环，返回i
 		return i
 	}
+	//i>n-m,退出所有循环。
 	return -1
 }
 
 func main() {
 	haystack := "hello"
 	needle := "ll"
-	fmt.Println(strStr2(haystack, needle))
+	fmt.Println(strStr(haystack, needle))
 }
