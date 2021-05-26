@@ -5,25 +5,16 @@ type ListNode struct {
 	Next *ListNode
 }
 
-func deleteNode(head *ListNode, val int) *ListNode {
-	dummyHead := &ListNode{
-		Next: head,
-	}
-	preNode := dummyHead
-	for head != nil {
-		next := head.Next
-		if head.Val == val {
-			preNode.Next = next
-			break
-		}
-		preNode = head
-		head = next
-	}
-	return dummyHead.Next
+func deleteNode(node *ListNode) {
+	//将下一个节点的值复制过来
+	node.Val = node.Next.Val
+	//将下下个节点指针复制过来
+	node.Next = node.Next.Next
+
 }
 
 func main() {
 	listnode := new(ListNode)
-	val := 5
-	deleteNode(listnode, val)
+
+	deleteNode(listnode)
 }
