@@ -1,0 +1,19 @@
+Index: leetcode/初级算法-字符-实现 strStr()/main.go
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package main\r\n\r\nimport \"fmt\"\r\n\r\n//\r\n//实现strStr()函数。\r\n//\r\n//给你两个字符串haystack 和 needle ，请你在 haystack 字符串中找出 needle 字符串出现的第一个位置（下标从 0 开始）。如果不存在，则返回 -1 。\r\n\r\n//说明：\r\n//\r\n//当needle是空字符串时，我们应当返回什么值呢？这是一个在面试中很好的问题。\r\n//\r\n//对于本题而言，当needle是空字符串时我们应当返回 0 。这与 C 语言的strstr()以及 Java 的indexOf()定义相符。\r\n\r\n//示例 1：\r\n//\r\n//输入：haystack = \"hello\", needle = \"ll\"\r\n//输出：2\r\n\r\n/////////////////暴力算法/////////////////\r\nfunc strStr(haystack string, needle string) int {\r\n\thashmap := []byte{}\r\n\tfor j := 0; j < len(haystack); j++ {\r\n\t\thashmap = append(hashmap, haystack[j])\r\n\t}\r\n\tfmt.Println(hashmap)\r\n\tfor n := 0; n < len(haystack)-len(needle); n++ {\r\n\r\n\t\tif needle[0] == haystack[n] {\r\n\t\t\tfmt.Println(\"第一个相同的元素：\", haystack[n])\r\n\t\t\tfor m := 0; m < len(needle); m++ {\r\n\t\t\t\tif needle[m] == haystack[n] {\r\n\t\t\t\t\tfmt.Println(needle[m], haystack[n])\r\n\t\t\t\t\tn++\r\n\t\t\t\t}\r\n\t\t\t\treturn -1\r\n\t\t\t}\r\n\t\t}\r\n\t}\r\n\treturn 0\r\n}\r\n\r\n////////////////////////////////////////////////\r\nfunc strStr2(haystack, needle string) int {\r\n\tn := len(haystack)\r\n\tm := len(needle)\r\nouter:\r\n\tfor i := 0; i <= n-m; i++ {\r\n\t\tfor j := range needle {\r\n\t\t\tfmt.Println(haystack[i+j], needle[j])\r\n\t\t\tif haystack[i+j] != needle[j] {\r\n\t\t\t\tcontinue outer\r\n\t\t\t}\r\n\t\t}\r\n\t\treturn i\r\n\t}\r\n\treturn -1\r\n}\r\n\r\nfunc main() {\r\n\thaystack := \"hello\"\r\n\tneedle := \"ll\"\r\n\tfmt.Println(strStr2(haystack, needle))\r\n}\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/leetcode/初级算法-字符-实现 strStr()/main.go b/leetcode/初级算法-字符-实现 strStr()/main.go
+--- a/leetcode/初级算法-字符-实现 strStr()/main.go	
++++ b/leetcode/初级算法-字符-实现 strStr()/main.go	
+@@ -37,6 +37,8 @@
+ 				return -1
+ 			}
+ 		}
++
++
+ 	}
+ 	return 0
+ }

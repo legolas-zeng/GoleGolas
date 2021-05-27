@@ -79,7 +79,8 @@ func new2old(newports []int, oldports []int, ip string) {
 		} else {
 			fmt.Println("关闭端口：", oldports[i])
 			msg := fmt.Sprintf("%s关闭端口：%s", ip, strconv.Itoa(oldports[i]))
-			sendmsg(msg)
+			fmt.Println(msg)
+			//sendmsg(msg)
 		}
 	}
 

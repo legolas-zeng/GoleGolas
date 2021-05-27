@@ -50,7 +50,6 @@ package main
 import (
 	"fmt"
 	"runtime"
-	"strconv"
 	"sync"
 	"time"
 )
@@ -677,75 +676,197 @@ func calc(index string, a, b int) int {
 //	fmt.Printf("16进制数 %X 表示的是: %d \n", num03, num03)
 //}
 
-// 定义一个接口
-type Good interface {
-	settleAccount() int
-	orderInfo() string
-}
-
-type Phone struct {
-	name     string
-	quantity int
-	price    int
-}
-
-func (phone Phone) settleAccount() int {
-	return phone.quantity * phone.price
-}
-func (phone Phone) orderInfo() string {
-	return "您要购买" + strconv.Itoa(phone.quantity) + "个" +
-		phone.name + "计：" + strconv.Itoa(phone.settleAccount()) + "元"
-}
-
-type FreeGift struct {
-	name     string
-	quantity int
-	price    int
-}
-
-func (gift FreeGift) settleAccount() int {
-	return 0
-}
-func (gift FreeGift) orderInfo() string {
-	return "您要购买" + strconv.Itoa(gift.quantity) + "个" +
-		gift.name + "计：" + strconv.Itoa(gift.settleAccount()) + "元"
-}
-
-func calculateAllPrice(goods []Good) int {
-	var allPrice int
-	for _, good := range goods {
-		fmt.Println(good.orderInfo())
-		allPrice += good.settleAccount()
-	}
-	return allPrice
-}
-func main() {
-	iPhone := Phone{
-		name:     "iPhone",
-		quantity: 1,
-		price:    8000,
-	}
-	earphones := FreeGift{
-		name:     "耳机",
-		quantity: 1,
-		price:    200,
-	}
-
-	goods := []Good{iPhone, earphones}
-	allPrice := calculateAllPrice(goods)
-	fmt.Printf("该订单总共需要支付 %d 元", allPrice)
-}
-
-//var wg sync.WaitGroup
+//// 定义一个接口
+//type Good interface {
+//	settleAccount() int
+//	orderInfo() string
+//}
 //
-//func cat() {
-//	fmt.Println("cat")
-//	defer wg.Done()
+//type Phone struct {
+//	name     string
+//	quantity int
+//	price    int
+//}
+//
+//func (phone Phone) settleAccount() int {
+//	return phone.quantity * phone.price
+//}
+//func (phone Phone) orderInfo() string {
+//	return "您要购买" + strconv.Itoa(phone.quantity) + "个" +
+//		phone.name + "计：" + strconv.Itoa(phone.settleAccount()) + "元"
+//}
+//
+//type FreeGift struct {
+//	name     string
+//	quantity int
+//	price    int
+//}
+//
+//func (gift FreeGift) settleAccount() int {
+//	return 0
+//}
+//func (gift FreeGift) orderInfo() string {
+//	return "您要购买" + strconv.Itoa(gift.quantity) + "个" +
+//		gift.name + "计：" + strconv.Itoa(gift.settleAccount()) + "元"
+//}
+//
+//func calculateAllPrice(goods []Good) int {
+//	var allPrice int
+//	for _, good := range goods {
+//		fmt.Println(good.orderInfo())
+//		allPrice += good.settleAccount()
+//	}
+//	return allPrice
+//}
+//func main() {
+//	iPhone := Phone{
+//		name:     "iPhone",
+//		quantity: 1,
+//		price:    8000,
+//	}
+//	earphones := FreeGift{
+//		name:     "耳机",
+//		quantity: 1,
+//		price:    200,
+//	}
+//
+//	goods := []Good{iPhone, earphones}
+//	allPrice := calculateAllPrice(goods)
+//	fmt.Printf("该订单总共需要支付 %d 元", allPrice)
+//}
+
+//var ch1 chan string
+//
+//func cat(ch chan string) {
+//	for i := 0; i < 100; i++ {
+//		ch <- "cat"
+//	}
+//	close(ch)
+//}
+//
+//func dog(ch chan string) {
+//	for i := 0; i < 100; i++ {
+//		ch <- "dog"
+//	}
+//	close(ch)
+//}
+//
+//func fish(ch chan string) {
+//	for i := 0; i < 100; i++ {
+//		ch <- "fish"
+//	}
+//	close(ch)
 //}
 //
 //func main() {
-//	wg.Add(100)
-//	go cat()
-//	wg.Wait()
+//	ch1 = make(chan string)
+//	ch2 := make(chan string)
+//	ch3 := make(chan string)
+//	go cat(ch1)
+//	go dog(ch2)
+//	go fish(ch3)
+//	for a := range ch1 {
+//		fmt.Println(a)
+//	}
+//	for b := range ch2 {
+//		fmt.Println(b)
+//	}
+//	for c := range ch3 {
+//		fmt.Println(c)
+//	}
+//}
+
+//func increment(ch chan bool, x *int) {
+//	ch <- true
+//	*x = *x + 1
+//	<-ch
+//}
+//
+//func main() {
+//	// 注意要设置容量为 1 的缓冲信道
+//	pipline := make(chan bool, 1)
+//
+//	var x int
+//	for i := 0; i < 100; i++ {
+//		go increment(pipline, &x)
+//		fmt.Println(i)
+//	}
+//
+//	// 确保所有的协程都已完成
+//	// 以后会介绍一种更合适的方法（Mutex），这里暂时使用sleep
+//	time.Sleep(3)
+//	fmt.Println("x 的值：", x)
+//}
+
+//func hello(ch chan string) {
+//	ch <- "hello world"
+//}
+//
+//func main() {
+//	pipline := make(chan string)
+//	go hello(pipline)
+//
+//	fmt.Println(<-pipline)
+//}
+
+//func main() {
+//	done := make(chan bool)
+//	go func() {
+//		for i := 0; i < 5; i++ {
+//			fmt.Println(i)
+//		}
+//		done <- true
+//	}()
+//	<-done
+//}
+
+//func cat(wg *sync.WaitGroup, lock *sync.Mutex) {
+//	defer wg.Done()
+//	lock.Lock()
+//	for i := 0; i < 100; i++ {
+//		fmt.Println("cat")
+//	}
+//	lock.Unlock()
 //
 //}
+//func dog(wg *sync.WaitGroup, lock *sync.Mutex) {
+//	defer wg.Done()
+//	lock.Lock()
+//	for i := 0; i < 100; i++ {
+//		fmt.Println("dog")
+//	}
+//	lock.Unlock()
+//}
+//
+//func fish(wg *sync.WaitGroup, lock *sync.Mutex) {
+//	defer wg.Done()
+//	lock.Lock()
+//	for i := 0; i < 100; i++ {
+//		fmt.Println("fish")
+//	}
+//	lock.Unlock()
+//}
+//
+//func main() {
+//	var wg sync.WaitGroup
+//	lock := &sync.Mutex{}
+//	wg.Add(3)
+//	go cat(&wg, lock)
+//	go dog(&wg, lock)
+//	go fish(&wg, lock)
+//	wg.Wait()
+//}
+
+//func main() {
+//	defer func() {
+//		if err := recover(); err != nil {
+//			fmt.Println(err)
+//		}
+//	}()
+//	panic("退出")
+//}
+
+func main() {
+	s := []string{"A", "B", "C"}
+	fmt.Printf("%c", s)
+}

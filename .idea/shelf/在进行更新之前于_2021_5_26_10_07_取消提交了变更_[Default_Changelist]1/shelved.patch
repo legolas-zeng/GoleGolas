@@ -1,0 +1,428 @@
+Index: leetcode-shell/统计词频/words.sh
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>#一个words.txt,进行词频统计\r\n#the day is sunny the the\r\n#the sunny is is\r\n\r\n#你的脚本应当输出（以词频降序排列）：\r\n#\r\n#the 4\r\n#is 3\r\n#sunny 2\r\n#day 1\r\n\r\ncat words.txt |xargs -n1|sort -r |uniq -c\r\n      3 the\r\n      2 sunny\r\n      2 is
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/leetcode-shell/统计词频/words.sh b/leetcode-shell/统计词频/words.sh
+--- a/leetcode-shell/统计词频/words.sh	
++++ b/leetcode-shell/统计词频/words.sh	
+@@ -8,8 +8,22 @@
+ #is 3
+ #sunny 2
+ #day 1
++############ 通过 xargs 分词 ############
++#cat words.txt |xargs -n1|sort -r |uniq -c
++#      3 the
++#      2 sunny
++#      2 is
+ 
+-cat words.txt |xargs -n1|sort -r |uniq -c
+-      3 the
+-      2 sunny
+-      2 is
+\ No newline at end of file
++############ 通过awk 分词 ############
++
++cat words.txt |
++awk '{
++    for(i=1;i<=NF;i++){
++        count[$i]++
++    }
++} END {
++    for(k in count){
++        print k" "count[k]
++    }
++}' |
++sort -rnk 2
+Index: go.mod
+===================================================================
+diff --git a/go.mod b/go.mod
+deleted file mode 100644
+--- a/go.mod	
++++ /dev/null	
+@@ -1,41 +0,0 @@
+-module GoleGolas
+-
+-go 1.14
+-
+-require (
+-	github.com/360EntSecGroup-Skylar/excelize v1.4.0 // indirect
+-	github.com/CatchZeng/dingtalk v1.2.0
+-	github.com/MXi4oyu/MoonSocket v0.0.0-20171018115308-f30174ba192f // indirect
+-	github.com/PuerkitoBio/goquery v1.6.1 // indirect
+-	github.com/StackExchange/wmi v0.0.0-20190523213315-cbe66965904d // indirect
+-	github.com/Unknwon/goconfig v0.0.0-20191126170842-860a72fb44fd // indirect
+-	github.com/aceld/zinx v0.0.0-20200315073925-f09df55dc746 // indirect
+-	github.com/astaxie/beego v1.12.1 // indirect
+-	github.com/domac/crddemo v0.0.0-20200308102454-091a3ada02c5 // indirect
+-	github.com/fatih/color v1.10.0 // indirect
+-	github.com/gin-gonic/gin v1.6.3
+-	github.com/go-ole/go-ole v1.2.4 // indirect
+-	github.com/go-sql-driver/mysql v1.5.0
+-	github.com/godror/godror v0.17.0 // indirect
+-	github.com/golang/glog v0.0.0-20160126235308-23def4e6c14b
+-	github.com/gorilla/mux v1.8.0
+-	github.com/imdario/mergo v0.3.9 // indirect
+-	github.com/mohae/deepcopy v0.0.0-20170929034955-c48cc78d4826 // indirect
+-	github.com/mritd/promptx v0.0.0-20191026063319-27892afe8e3a // indirect
+-	github.com/mxi4oyu/MoonSocket v0.0.0-20171018115308-f30174ba192f // indirect
+-	github.com/prometheus/client_golang v1.6.0
+-	github.com/saintfish/chardet v0.0.0-20120816061221-3af4cd4741ca // indirect
+-	github.com/shiena/ansicolor v0.0.0-20151119151921-a422bbe96644 // indirect
+-	github.com/sirupsen/logrus v1.4.2
+-	github.com/tealeg/xlsx v1.0.5 // indirect
+-	golang.org/x/oauth2 v0.0.0-20200107190931-bf48bf16ab8d // indirect
+-	golang.org/x/time v0.0.0-20200416051211-89c76fbcd5d1 // indirect
+-	k8s.io/api v0.17.0
+-	k8s.io/apimachinery v0.17.0
+-	k8s.io/client-go v0.17.0
+-	//k8s.io/apimachinery v0.18.2
+-	//k8s.io/client-go v0.18.2
+-	//k8s.io/api v0.18.2
+-	k8s.io/utils v0.0.0-20200619165400-6e3d28b6ed19 // indirect
+-	sigs.k8s.io/structured-merge-diff v0.0.0-20190525122527-15d366b2352e // indirect
+-)
+Index: log/192.168.3.16_port.txt
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>[22 25 110 3000 179 3100 39095 9080 45871] \r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/log/192.168.3.16_port.txt b/log/192.168.3.16_port.txt
+--- a/log/192.168.3.16_port.txt	
++++ b/log/192.168.3.16_port.txt	
+@@ -1,1 +1,1 @@
+-[22 25 110 3000 179 3100 39095 9080 45871] 
++[22 25 179 110] 
+Index: 随手记/test.go
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>//package main\r\n//\r\n//import (\r\n//\r\n//    \"fmt\"\r\n//    \"sync\"\r\n//)\r\n//\r\n//func consumer(messages <- chan int, shutdown <- chan int, wg *sync.WaitGroup) {\r\n//    defer wg.Done()\r\n//    for {\r\n//        select {\r\n//        case message, ok := <- messages:\r\n//            //do something.\r\n//            if ok {\r\n//                fmt.Println(message)\r\n//            } else {\r\n//                //no data , exit.\r\n//                fmt.Println(\"no data, exit.\")\r\n//                return\r\n//            }\r\n//        case _ = <- shutdown:\r\n//            //we `re done!\r\n//            //shutdown now , messages buffered channel data may be lost.\r\n//            fmt.Println(\"all done!\")\r\n//            return\r\n//        }\r\n//    }\r\n//}\r\n//\r\n//func main() {\r\n//    shutdown := make(chan int)\r\n//    messages := make(chan int, 16)\r\n//\r\n//    wg := &sync.WaitGroup{}\r\n//    wg.Add(1)\r\n//    go consumer(messages, shutdown, wg)\r\n//    for i := 0; i < 10; i++ {\r\n//        messages <- i\r\n//    }\r\n//    close(messages)\r\n//    fmt.Println(\"wait!\")\r\n//    wg.Wait()\r\n//\r\n//\r\n//}\r\n\r\npackage main\r\n\r\nimport (\r\n\t\"fmt\"\r\n\t\"runtime\"\r\n\t\"strconv\"\r\n\t\"sync\"\r\n\t\"time\"\r\n)\r\n\r\n//type AutoGenerated struct {\r\n// Age int    `json:\"age\"`\r\n// Name   string `json:\"name\"`\r\n// Child []int `json:\"child\"`\r\n//}\r\n//\r\n//func main() {\r\n//     jsonStr1 := `{\"age\": 14,\"name\": \"potter\", \"child\":[1,2,3]}`\r\n//     a := AutoGenerated{}\r\n//     json.Unmarshal([]byte(jsonStr1), &a)\r\n//     aa := a.Child\r\n//     fmt.Println(aa)\r\n//\r\n//     jsonStr2 := `{\"age\": 12,\"name\": \"potter\", \"child\":[3,4,5,7,8,9]}`\r\n//     json.Unmarshal([]byte(jsonStr2), &a)\r\n//     fmt.Println(aa)\r\n//}\r\n\r\n//func main() {\r\n//\t//file, err := os.Open(\"D:\\\\GoleGolas\\\\随手记\\\\端口扫描器\\\\log\\\\192.168.3.5_port.txt\")\r\n//\t//if err != nil {\r\n//\t//\tfmt.Println(err)\r\n//\t//\treturn\r\n//\t//}\r\n//\t//defer file.Close()\r\n//\t//\r\n//\t//fileinfo, err := file.Stat()\r\n//\t//if err != nil {\r\n//\t//\tfmt.Println(err)\r\n//\t//\treturn\r\n//\t//}\r\n//\t//\r\n//\t//filesize := fileinfo.Size()\r\n//\t//buffer := make([]byte, filesize)\r\n//\t//\r\n//\t//bytesread, err := file.Read(buffer)\r\n//\t//if err != nil {\r\n//\t//\tfmt.Println(err)\r\n//\t//\treturn\r\n//\t//}\r\n//\t//fmt.Println(\"bytes read: \", bytesread)\r\n//\t//fmt.Println(\"bytestream to string: \", string(buffer))\r\n//\tcontent, err := ioutil.ReadFile(\"D:\\\\GoleGolas\\\\随手记\\\\端口扫描器\\\\log\\\\192.168.3.5_port.txt\")\r\n//\tif err != nil {\r\n//\t\tpanic(err)\r\n//\t}\r\n//\tfmt.Println(string(content))\r\n//}\r\n\r\nfunc new1() {\r\n\tnewports := []int{22, 25, 110, 111, 3306, 4000, 4369, 5672, 8080, 9104, 9913, 25672, 35729}\r\n\toldports := []int{22, 25, 110, 111, 3306, 4369, 5672, 8080, 9104, 9913, 25672}\r\n\t//newports := []int{110, 111, 22, 25, 9913, 35729, 9104, 5672, 4369, 4000, 3306, 25672, 8080}\r\n\t//oldports := []int{110, 111, 22, 25, 5672, 3306, 9104, 35729, 4369, 4000, 9913, 25672, 8080}\r\n\tfmt.Println(newports)\r\n\tfmt.Println(oldports)\r\n\tfor i := range newports {\r\n\t\tfor j := 0; j < len(oldports); j++ {\r\n\t\t\tif newports[0] == oldports[j] {\r\n\t\t\t\tfmt.Println(\"有相同的端口\", newports[0], i)\r\n\t\t\t\tnewports = newports[1:]\r\n\t\t\t}\r\n\t\t}\r\n\t\tfmt.Println(newports)\r\n\t\tfmt.Println(\"新增端口\", newports[0], i)\r\n\t\t//fmt.Println(len(newports))\r\n\t\tif len(newports) > 1 {\r\n\t\t\tnewports = newports[1:]\r\n\t\t} else {\r\n\t\t\tbreak\r\n\t\t}\r\n\t}\r\n\r\n}\r\nfunc new2() {\r\n\t//newports := []int{22, 25, 110, 111, 3306, 4000, 4369, 5672, 8080, 9104, 9913, 25672, 35729}\r\n\t//oldports := []int{22, 25, 110, 111, 3306, 4369, 5672, 8080, 9104, 9913, 25672}\r\n\toldports := []int{22, 25, 110, 111, 3306, 4000, 4369, 5672, 8080, 9104, 9913, 25672, 35729}\r\n\tnewports := []int{22, 25, 110, 111, 3306, 4369, 5672, 8080, 9104, 9913, 25672}\r\n\tfmt.Println(newports)\r\n\tfmt.Println(oldports)\r\n\tfor i := range newports {\r\n\t\tif InIntSlice(oldports, newports[i]) {\r\n\t\t\tfmt.Println(\"相同的端口\")\r\n\t\t} else {\r\n\t\t\tfmt.Println(\"新增端口：\", newports[i])\r\n\t\t}\r\n\t}\r\n\tfor i := range oldports {\r\n\t\tif InIntSlice(newports, oldports[i]) {\r\n\t\t\tfmt.Println(\"相同的端口\")\r\n\t\t} else {\r\n\t\t\tfmt.Println(\"减少端口：\", oldports[i])\r\n\t\t}\r\n\t}\r\n\r\n}\r\n\r\nfunc InIntSlice(haystack []int, needle int) bool {\r\n\tfor _, e := range haystack {\r\n\t\tif e == needle {\r\n\t\t\treturn true\r\n\t\t}\r\n\t}\r\n\treturn false\r\n}\r\n\r\nfunc new3() {\r\n\tdefer func() { fmt.Println(\"打印前\") }()\r\n\tdefer func() { fmt.Println(\"打印中\") }()\r\n\tdefer func() { fmt.Println(\"打印后\") }()\r\n\r\n\tpanic(\"触发异常\")\r\n}\r\n\r\nfunc new4() (result int) {\r\n\tdefer func() {\r\n\t\tresult++\r\n\t}()\r\n\treturn 0\r\n}\r\n\r\nfunc new5() (t int) {\r\n\tt = 5\r\n\tdefer func() {\r\n\t\tt = t + 5\r\n\t}()\r\n\treturn t\r\n}\r\n\r\nfunc new6() (r int) {\r\n\tdefer func(r int) {\r\n\t\tr = r + 5\r\n\t}(r)\r\n\treturn 1\r\n}\r\n\r\nfunc new7() {\r\n\ti := 0\r\n\tdefer fmt.Println(\"a:\", i)\r\n\t//闭包调用，将外部i传到闭包中进行计算\r\n\tdefer func(j int) {\r\n\t\tfmt.Println(\"b:\", j)\r\n\t}(i)\r\n\t//闭包调用，捕获同作用域下的i进行计算\r\n\tdefer func() {\r\n\t\tfmt.Println(\"c:\", i)\r\n\t}()\r\n\ti++\r\n}\r\n\r\nfunc G() {\r\n\tdefer func() {\r\n\t\t//goroutine外进行recover\r\n\t\tif err := recover(); err != nil {\r\n\t\t\tfmt.Println(\"捕获异常:\", err)\r\n\t\t}\r\n\t\tfmt.Println(\"c\")\r\n\t}()\r\n\t//创建goroutine调用F函数\r\n\tgo F()\r\n\ttime.Sleep(time.Second)\r\n}\r\n\r\nfunc F() {\r\n\tdefer func() {\r\n\t\tfmt.Println(\"b\")\r\n\t}()\r\n\t//goroutine内部抛出panic\r\n\tpanic(\"a\")\r\n}\r\n\r\ntype student struct {\r\n\tName string\r\n\tAge  int\r\n}\r\n\r\nfunc new8() {\r\n\truntime.GOMAXPROCS(1)\r\n\twg := sync.WaitGroup{}\r\n\twg.Add(20)\r\n\tfor i := 0; i < 10; i++ {\r\n\t\tgo func() {\r\n\t\t\tfmt.Println(\"A: \", i)\r\n\t\t\twg.Done()\r\n\t\t}()\r\n\t}\r\n\tfor i := 0; i < 10; i++ {\r\n\t\tgo func(i int) {\r\n\t\t\tfmt.Println(\"B: \", i)\r\n\t\t\twg.Done()\r\n\t\t}(i)\r\n\t}\r\n\twg.Wait()\r\n}\r\n\r\nfunc calc(index string, a, b int) int {\r\n\tret := a + b\r\n\tfmt.Println(index, a, b, ret)\r\n\treturn ret\r\n}\r\n\r\n//func main() {\r\n//\ta := 1\r\n//\tb := 2\r\n//\tdefer calc(\"1\", a, calc(\"10\", a, b))\r\n//\ta = 0\r\n//\tdefer calc(\"2\", a, calc(\"20\", a, b))\r\n//\tb = 1\r\n//}\r\n\r\n//type UserAges struct {\r\n//\tages map[string]int\r\n//\tsync.Mutex\r\n//}\r\n//\r\n//func (ua *UserAges) Add(name string, age int) {\r\n//\tua.Lock()\r\n//\tdefer ua.Unlock()\r\n//\t//ua.ages = make(map[string]int)\r\n//\tua.ages[name] = age\r\n//}\r\n//\r\n//func (ua *UserAges) Get(name string) int {\r\n//\tif age, ok := ua.ages[name]; ok {\r\n//\t\treturn age\r\n//\t}\r\n//\treturn -1\r\n//}\r\n//\r\n//func main() {\r\n//\ta := new(UserAges)\r\n//\ta.Add(\"123\", 123)\r\n//\tfmt.Println(a.Get(\"123\"))\r\n//}\r\n\r\n//func main() {\r\n//\tm := make(map[int]int)\r\n//\r\n//\tgo func() {\r\n//\t\t// 不停地对map进行写入\r\n//\t\tfor {\r\n//\t\t\tm[1] = 1\r\n//\t\t}\r\n//\t}()\r\n//\r\n//\tgo func() {\r\n//\t\t// 不停地对map进行读取\r\n//\t\tfor {\r\n//\t\t\t_ = m[1]\r\n//\t\t}\r\n//\t}()\r\n//\r\n//\tfmt.Scanln()\r\n//}\r\n\r\n//type SyncMap struct {\r\n//\tmymap map[string]string\r\n//\t//读写锁包含一对相关的锁，读锁用于只读操作，写锁用于写操作。读锁可能由多个读线程同时运行，写锁是唯一的。\r\n//\t// * 读锁和写锁之间是互斥的，同一时间只能有一个在运行。但是可以有多个线程同时读取数据。\r\n//\t// * 写入数据之前必须重新确认(ReCheck)状态，因为其他的线程可能会拿到写锁再一次修改我们已经修改过的值。这是因为前一个线程拿到写锁之后，后面的线程会被阻塞。当前一个线程释放写锁之后，被阻塞的线程会继续运行完成被阻塞的部分代码，所以才会出现这样的情况。\r\n//\t// * 当某一个线程上了写锁之后，自己仍然可以上读锁，之后在释放写锁，这是一种降级(Downgrade)的处理方法。\r\n//\t*sync.RWMutex //读写锁\r\n//}\r\n//\r\n//var smap SyncMap   //公有的访问map\r\n//var done chan bool //通道，是否完成\r\n//func main() {\r\n//\tsmap = SyncMap{map[string]string{}, new(sync.RWMutex)}\r\n//\tdone = make(chan bool, 1000)\r\n//\r\n//\tgo func() {\r\n//\t\tfor {\r\n//\t\t\tsmap.Lock()\r\n//\t\t\tsmap.mymap[\"1\"] = \"1\"\r\n//\t\t\tsmap.Unlock()\r\n//\t\t\tdone <- true\r\n//\t\t\ttime.Sleep(1 * time.Millisecond)\r\n//\t\t}\r\n//\t}()\r\n//\r\n//\tgo func() {\r\n//\t\tfor {\r\n//\t\t\tsmap.Lock()\r\n//\t\t\tsmap.mymap[\"1\"] = \"2\"\r\n//\t\t\tsmap.Unlock()\r\n//\t\t\tdone <- true\r\n//\t\t\ttime.Sleep(1 * time.Millisecond)\r\n//\t\t}\r\n//\t}()\r\n//\r\n//\tvar lastlength = 0\r\n//\tvar lock sync.Mutex\r\n//\tgo func() {\r\n//\t\tfor {\r\n//\t\t\tif len(done) != lastlength {\r\n//\t\t\t\tlock.Lock()\r\n//\t\t\t\tlastlength = len(done)\r\n//\t\t\t\tlock.Unlock()\r\n//\r\n//\t\t\t\tsmap.RLock()\r\n//\t\t\t\tfmt.Print(smap.mymap[\"1\"], \"\\t\")\r\n//\t\t\t\tif len(done)%5 == 0 {\r\n//\t\t\t\t\tfmt.Println(\"  \", lastlength)\r\n//\t\t\t\t}\r\n//\t\t\t\tsmap.RUnlock()\r\n//\t\t\t}\r\n//\t\t}\r\n//\t}()\r\n//\r\n//\tfor {\r\n//\t\tif len(done) == 1000 {\r\n//\t\t\tfmt.Println(\"通道已经满了\")\r\n//\t\t\tbreak\r\n//\t\t} else {\r\n//\t\t\ttime.Sleep(1 * time.Second)\r\n//\t\t}\r\n//\t}\r\n//}\r\n\r\n//type threadSafeSet struct {\r\n//\tsync.RWMutex\r\n//\ts []interface{}\r\n//}\r\n//\r\n//func (set *threadSafeSet) Iter() <-chan interface{} {\r\n//\t// ch := make(chan interface{}) // 解除注释看看！\r\n//\tch := make(chan interface{}, len(set.s))\r\n//\tgo func() {\r\n//\t\tset.RLock()\r\n//\r\n//\t\tfor elem, value := range set.s {\r\n//\t\t\tch <- elem\r\n//\t\t\tprintln(\"Iter:\", elem, value)\r\n//\t\t}\r\n//\r\n//\t\tclose(ch)\r\n//\t\tset.RUnlock()\r\n//\r\n//\t}()\r\n//\treturn ch\r\n//}\r\n//\r\n//func main() {\r\n//\r\n//\tth := threadSafeSet{\r\n//\t\ts: []interface{}{\"1\", \"2\", \"3\"},\r\n//\t}\r\n//\tv := <-th.Iter()\r\n//\tfmt.Sprintf(\"%s%v\", \"ch\", v)\r\n//}\r\n\r\n//type People interface {\r\n//\tSpeak(string) string\r\n//}\r\n//\r\n//type stduent struct{}\r\n//\r\n//func (stu stduent) Speak(think string) (talk string) {\r\n//\tif think == \"bitch\" {\r\n//\t\ttalk = \"You are a good boy\"\r\n//\t} else {\r\n//\t\ttalk = \"hi\"\r\n//\t}\r\n//\treturn\r\n//}\r\n//\r\n//func main() {\r\n//\tvar peo People = &stduent{}\r\n//\tthink := \"bitch\"\r\n//\tfmt.Println(peo.Speak(think))\r\n//}\r\n\r\n//type People interface {\r\n//\tShow()\r\n//}\r\n//\r\n//type Student struct{}\r\n//\r\n//func (stu *Student) Show() {\r\n//\r\n//}\r\n//\r\n//func live() People {\r\n//\tvar stu *Student\r\n//\treturn stu\r\n//}\r\n//\r\n//func main() {\r\n//\tfmt.Println(live())\r\n//\tif live() == nil {\r\n//\t\tfmt.Println(\"AAAAAAA\")\r\n//\t} else {\r\n//\t\tfmt.Println(\"BBBBBBB\")\r\n//\t}\r\n//}\r\n\r\n//type students struct {\r\n//\tName string\r\n//\tAge  int\r\n//}\r\n//\r\n//func pase_student() {\r\n//\tm := make(map[string]*students)\r\n//\tstus := []students{\r\n//\t\t{Name: \"zhou\", Age: 24},\r\n//\t\t{Name: \"li\", Age: 23},\r\n//\t\t{Name: \"wang\", Age: 22},\r\n//\t}\r\n//\tfor _, stu := range stus {\r\n//\t\tm[stu.Name] = &stu\r\n//\t\tfmt.Println(stu)\r\n//\t\tfmt.Printf(\"%p \\n\", &stu)\r\n//\t}\r\n//\tfmt.Print(m)\r\n//\r\n//}\r\n//\r\n//func main() {\r\n//\tpase_student()\r\n//}\r\n\r\n//func main() {\r\n//\tlist := new([]int)\r\n//\t*list = append(*list, 1)\r\n//\tfmt.Println(*list)\r\n//}\r\n\r\n//type students struct {\r\n//\tname string\r\n//}\r\n//\r\n//var list map[string]*students\r\n//\r\n//func main() {\r\n//\tlist = make(map[string]*students)\r\n//\tstudent := students{\"Aceld\"}\r\n//\t//list[\"student\"] = student\r\n//\t//tmpstudent := list[\"student\"]\r\n//\t//tmpstudent.name = \"LDB\"\r\n//\t////list[\"student\"].name = \"456\"\r\n//\r\n//\tlist[\"student\"] = &student\r\n//\tlist[\"student\"].name = \"LDB\"\r\n//\r\n//\tfmt.Println(list[\"student\"])\r\n//}\r\n\r\n//type students struct {\r\n//\tName string\r\n//\tAge  int\r\n//}\r\n//\r\n//func main() {\r\n//\t//定义map\r\n//\tm := make(map[string]*students)\r\n//\t//定义student数组\r\n//\tstus := []students{\r\n//\t\t{Name: \"zhou\", Age: 24},\r\n//\t\t{Name: \"li\", Age: 23},\r\n//\t\t{Name: \"wang\", Age: 22},\r\n//\t}\r\n//\t//将数组依次添加到map中\r\n//\tfor i := 0; i < len(stus); i++ {\r\n//\t\tm[stus[i].Name] = &stus[i]\r\n//\t}\r\n//\t//打印map\r\n//\tfor k, v := range m {\r\n//\t\tfmt.Println(k, \"=>\", v.Age)\r\n//\t}\r\n//}\r\n\r\n//func missingNumber(nums []int) int {\r\n//\r\n//\t//二分法\r\n//\r\n//\tbeg := 0\r\n//\tend := len(nums)\r\n//\r\n//\tfor beg < end {\r\n//\r\n//\t\tmid := (beg + end) / 2\r\n//\t\tfmt.Println(mid)\r\n//\t\tif nums[mid] == mid {\r\n//\t\t\tbeg = mid + 1\r\n//\t\t\tfmt.Println(\"相同\", beg, end, mid, nums[mid])\r\n//\t\t} else {\r\n//\t\t\tend = mid\r\n//\t\t\tfmt.Println(\"不相同\", beg, end, mid, nums[mid])\r\n//\t\t}\r\n//\t\tfmt.Println(\"-------\", nums[beg:end])\r\n//\r\n//\t}\r\n//\treturn beg\r\n//\r\n//}\r\n//\r\n//func main() {\r\n//\tfmt.Println(missingNumber([]int{0, 1, 2, 3, 4, 5, 6, 8, 9}))\r\n//}\r\n\r\n//func QuickSort(nums []int) []int {\r\n//\t// 思路：把一个数组分为左右两段，左段小于右段\r\n//\tquickSort(nums, 0, len(nums)-1)\r\n//\treturn nums\r\n//\r\n//}\r\n//\r\n//// 原地交换，所以传入交换索引\r\n//func quickSort(nums []int, start, end int) {\r\n//\tif start < end {\r\n//\t\t// 分治法：divide\r\n//\t\tpivot := partition(nums, start, end)\r\n//\t\tquickSort(nums, 0, pivot-1)\r\n//\t\tquickSort(nums, pivot+1, end)\r\n//\t}\r\n//}\r\n//\r\n//// 分区\r\n//func partition(nums []int, start, end int) int {\r\n//\t// 选取最后一个元素作为基准pivot\r\n//\tp := nums[end]\r\n//\ti := start\r\n//\t// 最后一个值就是基准所以不用比较\r\n//\tfor j := start; j < end; j++ {\r\n//\t\tif nums[j] < p {\r\n//\t\t\tswap(nums, i, j)\r\n//\t\t\ti++\r\n//\t\t}\r\n//\t}\r\n//\t// 把基准值换到中间\r\n//\tswap(nums, i, end)\r\n//\treturn i\r\n//}\r\n//\r\n//// 交换两个元素\r\n//func swap(nums []int, i, j int) {\r\n//\tt := nums[i]\r\n//\tnums[i] = nums[j]\r\n//\tnums[j] = t\r\n//}\r\n//\r\n//func main() {\r\n//\tfmt.Println(QuickSort([]int{2, 6, 5, 4, 3, 1}))\r\n//}\r\n\r\n//func main() {\r\n//\tvar x int = 100\r\n//\tfmt.Println(unsafe.Sizeof(x)) // 8\r\n//\tvar y int64 = 1\r\n//\tfmt.Println(unsafe.Sizeof(y)) // 8\r\n//\tvar y1 int32 = 1\r\n//\tfmt.Println(unsafe.Sizeof(y1)) // 4\r\n//\tvar z uint64 = 1\r\n//\tfmt.Println(unsafe.Sizeof(z)) // 8\r\n//\tvar z1 uint32 = 1\r\n//\tfmt.Println(unsafe.Sizeof(z1)) // 4\r\n//\ti := uint(1)\r\n//\tfmt.Println(unsafe.Sizeof(i)) // 8\r\n//\tj := float64(4.11)\r\n//\tfmt.Println(unsafe.Sizeof(j)) // 8\r\n//\ta := string(\"123666\")\r\n//\tfmt.Println(unsafe.Sizeof(a)) // 16\r\n//\tc := bool(true)\r\n//\tfmt.Println(unsafe.Sizeof(c)) // 1\r\n//}\r\n\r\n//func main() {\r\n//\r\n//\tvar str = \"hello 你好\"\r\n//\t//golang中string底层是通过byte数组实现的，座椅直接求len 实际是在按字节长度计算  所以一个汉字占3个字节算了3个长度\r\n//\tfmt.Println(\"len(str):\", len(str))\r\n//\ts := map[int]string{\r\n//\t\t1: \"123\",\r\n//\t}\r\n//\ta := make(map[int]string)\r\n//\t//以下两种都可以得到str的字符串长度\r\n//\r\n//\t//golang中的unicode/utf8包提供了用utf-8获取长度的方法\r\n//\tfmt.Println(\"RuneCountInString:\", utf8.RuneCountInString(str))\r\n//\r\n//\t//通过rune类型处理unicode字符\r\n//\tfmt.Println(\"rune:\", len([]rune(str)))\r\n//\tfor k, v := range str {\r\n//\t\tfmt.Printf(\"v type: %T\\n\", v)\r\n//\t\tfmt.Printf(\"k type: %T\\n\", k)\r\n//\t\tfmt.Println(v, k)\r\n//\t}\r\n//\tfmt.Println(\"rune:\", len([]rune(str)))\r\n//\r\n//}\r\n\r\n//func main() {\r\n//\tss := []string{\r\n//\t\t\"ado\",\r\n//\t\t\"duzhenxun\",\r\n//\t\t\"小手25是什么\",\r\n//\t\t\"来个长点的字符串，微信号5552123\",\r\n//\t}\r\n//\ttmpArr := map[int32]int{}\r\n//\tfor k, v := range []int32(ss[1]) {\r\n//\t\tfmt.Println(k, v)\r\n//\t\tfmt.Println(tmpArr)\r\n//\t\tif tmpArr[v] != 0 && len(tmpArr) > 0 {\r\n//\t\t\tfmt.Println(v)\r\n//\t\t\tfmt.Println(\"有重复\")\r\n//\t\t\tbreak\r\n//\t\t}\r\n//\t\ttmpArr[v] = k\r\n//\t}\r\n//}\r\n\r\n//func main() {\r\n//\tvar num01 int = 0b1100\r\n//\tvar num02 int = 0o14\r\n//\tvar num03 int = 0xC\r\n//\r\n//\tfmt.Printf(\"2进制数 %b 表示的是: %d \\n\", num01, num01)\r\n//\tfmt.Printf(\"8进制数 %o 表示的是: %d \\n\", num02, num02)\r\n//\tfmt.Printf(\"16进制数 %X 表示的是: %d \\n\", num03, num03)\r\n//}\r\n\r\n// 定义一个接口\r\ntype Good interface {\r\n\tsettleAccount() int\r\n\torderInfo() string\r\n}\r\n\r\ntype Phone struct {\r\n\tname     string\r\n\tquantity int\r\n\tprice    int\r\n}\r\n\r\nfunc (phone Phone) settleAccount() int {\r\n\treturn phone.quantity * phone.price\r\n}\r\nfunc (phone Phone) orderInfo() string {\r\n\treturn \"您要购买\" + strconv.Itoa(phone.quantity) + \"个\" +\r\n\t\tphone.name + \"计：\" + strconv.Itoa(phone.settleAccount()) + \"元\"\r\n}\r\n\r\ntype FreeGift struct {\r\n\tname     string\r\n\tquantity int\r\n\tprice    int\r\n}\r\n\r\nfunc (gift FreeGift) settleAccount() int {\r\n\treturn 0\r\n}\r\nfunc (gift FreeGift) orderInfo() string {\r\n\treturn \"您要购买\" + strconv.Itoa(gift.quantity) + \"个\" +\r\n\t\tgift.name + \"计：\" + strconv.Itoa(gift.settleAccount()) + \"元\"\r\n}\r\n\r\nfunc calculateAllPrice(goods []Good) int {\r\n\tvar allPrice int\r\n\tfor _, good := range goods {\r\n\t\tfmt.Println(good.orderInfo())\r\n\t\tallPrice += good.settleAccount()\r\n\t}\r\n\treturn allPrice\r\n}\r\nfunc main() {\r\n\tiPhone := Phone{\r\n\t\tname:     \"iPhone\",\r\n\t\tquantity: 1,\r\n\t\tprice:    8000,\r\n\t}\r\n\tearphones := FreeGift{\r\n\t\tname:     \"耳机\",\r\n\t\tquantity: 1,\r\n\t\tprice:    200,\r\n\t}\r\n\r\n\tgoods := []Good{iPhone, earphones}\r\n\tallPrice := calculateAllPrice(goods)\r\n\tfmt.Printf(\"该订单总共需要支付 %d 元\", allPrice)\r\n}\r\n\r\n//var wg sync.WaitGroup\r\n//\r\n//func cat() {\r\n//\tfmt.Println(\"cat\")\r\n//\tdefer wg.Done()\r\n//}\r\n//\r\n//func main() {\r\n//\twg.Add(100)\r\n//\tgo cat()\r\n//\twg.Wait()\r\n//\r\n//}\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/随手记/test.go b/随手记/test.go
+--- a/随手记/test.go	
++++ b/随手记/test.go	
+@@ -50,7 +50,6 @@
+ import (
+ 	"fmt"
+ 	"runtime"
+-	"strconv"
+ 	"sync"
+ 	"time"
+ )
+@@ -677,75 +676,197 @@
+ //	fmt.Printf("16进制数 %X 表示的是: %d \n", num03, num03)
+ //}
+ 
+-// 定义一个接口
+-type Good interface {
+-	settleAccount() int
+-	orderInfo() string
+-}
+-
+-type Phone struct {
+-	name     string
+-	quantity int
+-	price    int
+-}
+-
+-func (phone Phone) settleAccount() int {
+-	return phone.quantity * phone.price
+-}
+-func (phone Phone) orderInfo() string {
+-	return "您要购买" + strconv.Itoa(phone.quantity) + "个" +
+-		phone.name + "计：" + strconv.Itoa(phone.settleAccount()) + "元"
+-}
++//// 定义一个接口
++//type Good interface {
++//	settleAccount() int
++//	orderInfo() string
++//}
++//
++//type Phone struct {
++//	name     string
++//	quantity int
++//	price    int
++//}
++//
++//func (phone Phone) settleAccount() int {
++//	return phone.quantity * phone.price
++//}
++//func (phone Phone) orderInfo() string {
++//	return "您要购买" + strconv.Itoa(phone.quantity) + "个" +
++//		phone.name + "计：" + strconv.Itoa(phone.settleAccount()) + "元"
++//}
++//
++//type FreeGift struct {
++//	name     string
++//	quantity int
++//	price    int
++//}
++//
++//func (gift FreeGift) settleAccount() int {
++//	return 0
++//}
++//func (gift FreeGift) orderInfo() string {
++//	return "您要购买" + strconv.Itoa(gift.quantity) + "个" +
++//		gift.name + "计：" + strconv.Itoa(gift.settleAccount()) + "元"
++//}
++//
++//func calculateAllPrice(goods []Good) int {
++//	var allPrice int
++//	for _, good := range goods {
++//		fmt.Println(good.orderInfo())
++//		allPrice += good.settleAccount()
++//	}
++//	return allPrice
++//}
++//func main() {
++//	iPhone := Phone{
++//		name:     "iPhone",
++//		quantity: 1,
++//		price:    8000,
++//	}
++//	earphones := FreeGift{
++//		name:     "耳机",
++//		quantity: 1,
++//		price:    200,
++//	}
++//
++//	goods := []Good{iPhone, earphones}
++//	allPrice := calculateAllPrice(goods)
++//	fmt.Printf("该订单总共需要支付 %d 元", allPrice)
++//}
+ 
+-type FreeGift struct {
+-	name     string
+-	quantity int
+-	price    int
+-}
++//var ch1 chan string
++//
++//func cat(ch chan string) {
++//	for i := 0; i < 100; i++ {
++//		ch <- "cat"
++//	}
++//	close(ch)
++//}
++//
++//func dog(ch chan string) {
++//	for i := 0; i < 100; i++ {
++//		ch <- "dog"
++//	}
++//	close(ch)
++//}
++//
++//func fish(ch chan string) {
++//	for i := 0; i < 100; i++ {
++//		ch <- "fish"
++//	}
++//	close(ch)
++//}
++//
++//func main() {
++//	ch1 = make(chan string)
++//	ch2 := make(chan string)
++//	ch3 := make(chan string)
++//	go cat(ch1)
++//	go dog(ch2)
++//	go fish(ch3)
++//	for a := range ch1 {
++//		fmt.Println(a)
++//	}
++//	for b := range ch2 {
++//		fmt.Println(b)
++//	}
++//	for c := range ch3 {
++//		fmt.Println(c)
++//	}
++//}
+ 
+-func (gift FreeGift) settleAccount() int {
+-	return 0
+-}
+-func (gift FreeGift) orderInfo() string {
+-	return "您要购买" + strconv.Itoa(gift.quantity) + "个" +
+-		gift.name + "计：" + strconv.Itoa(gift.settleAccount()) + "元"
+-}
++//func increment(ch chan bool, x *int) {
++//	ch <- true
++//	*x = *x + 1
++//	<-ch
++//}
++//
++//func main() {
++//	// 注意要设置容量为 1 的缓冲信道
++//	pipline := make(chan bool, 1)
++//
++//	var x int
++//	for i := 0; i < 100; i++ {
++//		go increment(pipline, &x)
++//		fmt.Println(i)
++//	}
++//
++//	// 确保所有的协程都已完成
++//	// 以后会介绍一种更合适的方法（Mutex），这里暂时使用sleep
++//	time.Sleep(3)
++//	fmt.Println("x 的值：", x)
++//}
+ 
+-func calculateAllPrice(goods []Good) int {
+-	var allPrice int
+-	for _, good := range goods {
+-		fmt.Println(good.orderInfo())
+-		allPrice += good.settleAccount()
+-	}
+-	return allPrice
+-}
+-func main() {
+-	iPhone := Phone{
+-		name:     "iPhone",
+-		quantity: 1,
+-		price:    8000,
+-	}
+-	earphones := FreeGift{
+-		name:     "耳机",
+-		quantity: 1,
+-		price:    200,
+-	}
++//func hello(ch chan string) {
++//	ch <- "hello world"
++//}
++//
++//func main() {
++//	pipline := make(chan string)
++//	go hello(pipline)
++//
++//	fmt.Println(<-pipline)
++//}
+ 
+-	goods := []Good{iPhone, earphones}
+-	allPrice := calculateAllPrice(goods)
+-	fmt.Printf("该订单总共需要支付 %d 元", allPrice)
+-}
++//func main() {
++//	done := make(chan bool)
++//	go func() {
++//		for i := 0; i < 5; i++ {
++//			fmt.Println(i)
++//		}
++//		done <- true
++//	}()
++//	<-done
++//}
+ 
+-//var wg sync.WaitGroup
+-//
+-//func cat() {
+-//	fmt.Println("cat")
++//func cat(wg *sync.WaitGroup, lock *sync.Mutex) {
++//	defer wg.Done()
++//	lock.Lock()
++//	for i := 0; i < 100; i++ {
++//		fmt.Println("cat")
++//	}
++//	lock.Unlock()
++//
++//}
++//func dog(wg *sync.WaitGroup, lock *sync.Mutex) {
++//	defer wg.Done()
++//	lock.Lock()
++//	for i := 0; i < 100; i++ {
++//		fmt.Println("dog")
++//	}
++//	lock.Unlock()
++//}
++//
++//func fish(wg *sync.WaitGroup, lock *sync.Mutex) {
+ //	defer wg.Done()
++//	lock.Lock()
++//	for i := 0; i < 100; i++ {
++//		fmt.Println("fish")
++//	}
++//	lock.Unlock()
+ //}
+ //
+ //func main() {
+-//	wg.Add(100)
+-//	go cat()
++//	var wg sync.WaitGroup
++//	lock := &sync.Mutex{}
++//	wg.Add(3)
++//	go cat(&wg, lock)
++//	go dog(&wg, lock)
++//	go fish(&wg, lock)
+ //	wg.Wait()
+-//
+ //}
++
++//func main() {
++//	defer func() {
++//		if err := recover(); err != nil {
++//			fmt.Println(err)
++//		}
++//	}()
++//	panic("退出")
++//}
++
++func main() {
++	s := []string{"A", "B", "C"}
++	fmt.Printf("%c", s)
++}
+Index: .idea/watcherTasks.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n<project version=\"4\">\r\n  <component name=\"ProjectTasksOptions\">\r\n    <TaskOptions isEnabled=\"true\">\r\n      <option name=\"arguments\" value=\"fmt $FilePath$\" />\r\n      <option name=\"checkSyntaxErrors\" value=\"true\" />\r\n      <option name=\"description\" />\r\n      <option name=\"exitCodeBehavior\" value=\"ERROR\" />\r\n      <option name=\"fileExtension\" value=\"go\" />\r\n      <option name=\"immediateSync\" value=\"false\" />\r\n      <option name=\"name\" value=\"go fmt\" />\r\n      <option name=\"output\" value=\"$FilePath$\" />\r\n      <option name=\"outputFilters\">\r\n        <array />\r\n      </option>\r\n      <option name=\"outputFromStdout\" value=\"false\" />\r\n      <option name=\"program\" value=\"$GoExecPath$\" />\r\n      <option name=\"runOnExternalChanges\" value=\"false\" />\r\n      <option name=\"scopeName\" value=\"Project Files\" />\r\n      <option name=\"trackOnlyRoot\" value=\"true\" />\r\n      <option name=\"workingDir\" value=\"$ProjectFileDir$\" />\r\n      <envs>\r\n        <env name=\"GOROOT\" value=\"$GOROOT$\" />\r\n        <env name=\"GOPATH\" value=\"$GOPATH$\" />\r\n        <env name=\"PATH\" value=\"$GoBinDirs$\" />\r\n      </envs>\r\n    </TaskOptions>\r\n  </component>\r\n</project>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.idea/watcherTasks.xml b/.idea/watcherTasks.xml
+--- a/.idea/watcherTasks.xml	
++++ b/.idea/watcherTasks.xml	
+@@ -1,7 +1,7 @@
+ <?xml version="1.0" encoding="UTF-8"?>
+ <project version="4">
+   <component name="ProjectTasksOptions">
+-    <TaskOptions isEnabled="true">
++    <TaskOptions isEnabled="false">
+       <option name="arguments" value="fmt $FilePath$" />
+       <option name="checkSyntaxErrors" value="true" />
+       <option name="description" />
+Index: 随手记/端口扫描器/lib/lib.go
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package lib\r\n\r\nimport (\r\n\t\"flag\"\r\n\t\"fmt\"\r\n\t\"io/ioutil\"\r\n\t\"net/http\"\r\n\t\"os\"\r\n\t\"regexp\"\r\n\t\"strconv\"\r\n\t\"strings\"\r\n)\r\n\r\nfunc Usage(str string) {\r\n\tfmt.Fprintf(os.Stderr, str)\r\n\tflag.PrintDefaults()\r\n}\r\n\r\nfunc Mkdir(path string) {\r\n\tf, err := os.Stat(path)\r\n\tif err != nil || f.IsDir() == false {\r\n\t\tif err := os.Mkdir(path, os.ModePerm); err != nil {\r\n\t\t\tfmt.Println(\"创建目录失败！\", err)\r\n\t\t\treturn\r\n\t\t}\r\n\t}\r\n}\r\n\r\nfunc Contrast(newports []int, fileName string, ip string) {\r\n\tif exists(fileName) {\r\n\t\tstr := Openlog(fileName)\r\n\t\treg := regexp.MustCompile(`\\d+`)\r\n\t\tportslist := reg.FindAllStringSubmatch(str, -1)\r\n\t\toldports := make([]int, len(portslist))\r\n\t\tfor i := range oldports {\r\n\t\t\toutdata, _ := strconv.Atoi(portslist[i][0])\r\n\t\t\toldports[i] = outdata\r\n\t\t}\r\n\t\tnew2old(newports, oldports, ip)\r\n\t}\r\n\r\n}\r\n\r\nfunc exists(path string) bool {\r\n\t_, err := os.Stat(path) //os.Stat获取文件信息\r\n\tif err != nil {\r\n\t\tif os.IsExist(err) {\r\n\t\t\treturn true\r\n\t\t}\r\n\t\treturn false\r\n\t}\r\n\treturn true\r\n}\r\n\r\nfunc Openlog(fileName string) string {\r\n\tcontent, err := ioutil.ReadFile(fileName)\r\n\tif err != nil {\r\n\t\tpanic(err)\r\n\t}\r\n\t//fmt.Println(string(content))\r\n\treturn string(content)\r\n}\r\n\r\nfunc new2old(newports []int, oldports []int, ip string) {\r\n\tfmt.Println(newports)\r\n\tfmt.Println(oldports)\r\n\tfor i := range newports {\r\n\t\tif InIntSlice(oldports, newports[i]) {\r\n\t\t\tfmt.Println(\"相同的端口\")\r\n\t\t} else {\r\n\t\t\tfmt.Println(\"开启端口：\", newports[i])\r\n\t\t\tmsg := fmt.Sprintf(\"%s开启端口：%s\", ip, strconv.Itoa(newports[i]))\r\n\t\t\tsendmsg(msg)\r\n\t\t}\r\n\t}\r\n\tfor i := range oldports {\r\n\t\tif InIntSlice(newports, oldports[i]) {\r\n\t\t\tfmt.Println(\"相同的端口\")\r\n\t\t} else {\r\n\t\t\tfmt.Println(\"关闭端口：\", oldports[i])\r\n\t\t\tmsg := fmt.Sprintf(\"%s关闭端口：%s\", ip, strconv.Itoa(oldports[i]))\r\n\t\t\tsendmsg(msg)\r\n\t\t}\r\n\t}\r\n\r\n}\r\n\r\nfunc InIntSlice(haystack []int, needle int) bool {\r\n\tfor _, e := range haystack {\r\n\t\tif e == needle {\r\n\t\t\treturn true\r\n\t\t}\r\n\t}\r\n\treturn false\r\n}\r\n\r\nfunc sendmsg(msg string) {\r\n\twebHook := \"https://oapi.dingtalk.com/robot/send?access_token=beddb4248f9c93ec537676544265d49f23a9d773f6d55b6689ff387c334592c1\"\r\n\tcontent := `{\"msgtype\": \"text\",\r\n      \t\"text\": {\"content\": \"` + msg + `\"},\r\n                \"at\": {\r\n                     \"atMobiles\": [\r\n                         \"18126473169\"\r\n                     ],\r\n                     \"isAtAll\": false\r\n                }\r\n\t\t}`\r\n\t//创建一个请求\r\n\treq, err := http.NewRequest(\"POST\", webHook, strings.NewReader(content))\r\n\tif err != nil {\r\n\t\tfmt.Println(err)\r\n\t}\r\n\tclient := &http.Client{}\r\n\t//设置请求头\r\n\treq.Header.Set(\"Content-Type\", \"application/json\")\r\n\treq.Header.Set(\"User-agent\", \"firefox\")\r\n\t//发送请求\r\n\tresp, err := client.Do(req)\r\n\t//关闭请求\r\n\tdefer resp.Body.Close()\r\n\tfmt.Println(resp.StatusCode)\r\n\tbody, _ := ioutil.ReadAll(resp.Body)\r\n\tfmt.Println(string(body))\r\n\tif err != nil {\r\n\t\tfmt.Println(\"handle error\")\r\n\t}\r\n}\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/随手记/端口扫描器/lib/lib.go b/随手记/端口扫描器/lib/lib.go
+--- a/随手记/端口扫描器/lib/lib.go	
++++ b/随手记/端口扫描器/lib/lib.go	
+@@ -79,7 +79,8 @@
+ 		} else {
+ 			fmt.Println("关闭端口：", oldports[i])
+ 			msg := fmt.Sprintf("%s关闭端口：%s", ip, strconv.Itoa(oldports[i]))
+-			sendmsg(msg)
++			fmt.Println(msg)
++			//sendmsg(msg)
+ 		}
+ 	}
+ 
+Index: log/192.168.3.5_port.txt
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>[22 25 110 111 9104 9913 3306 8080 25672 5672 4369] \r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/log/192.168.3.5_port.txt b/log/192.168.3.5_port.txt
+--- a/log/192.168.3.5_port.txt	
++++ b/log/192.168.3.5_port.txt	
+@@ -1,1 +1,1 @@
+-[22 25 110 111 9104 9913 3306 8080 25672 5672 4369] 
++[110 111 22 25 4369 8080 5672 9913 9104 3306 25672] 

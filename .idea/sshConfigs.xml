@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="SshConfigs">
+    <configs>
+      <sshConfig authType="PASSWORD" connectionConfig="{&quot;serverAliveInterval&quot;:300}" host="192.168.3.16" id="98eb95d6-6539-4145-9a3e-45c45b8d8086" port="22" customName="golegolas" nameFormat="CUSTOM">
+        <option name="customName" value="golegolas" />
+      </sshConfig>
+    </configs>
+  </component>
+</project>
