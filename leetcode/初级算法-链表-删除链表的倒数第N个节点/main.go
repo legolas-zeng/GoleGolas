@@ -46,6 +46,7 @@ func removeNthFromEnd2(head *ListNode, n int) *ListNode {
 	if fast == nil {
 		return slow.Next
 	}
+	fmt.Println()
 	//当第一个指针到达链表尾部时，
 	//第二个指针刚好到达倒数第n个位置
 	for fast.Next != nil {
