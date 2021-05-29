@@ -28,14 +28,18 @@ func reverseList2(head *ListNode) *ListNode {
 	if head == nil {
 		return nil
 	}
-
+	//声明一个newhead，此时的newhead为nil
 	var newHead *ListNode
 	for head != nil {
 		fmt.Println("交换前：", head, newHead)
+		//备份head.Next给node
 		node := head.Next
 		fmt.Println("交换中：", node)
+		//让head指向newHead
 		head.Next = newHead
+		//把head变成newHead
 		newHead = head
+		//让老的head，获取到备份的那个next
 		head = node
 		fmt.Println("交换后：", head, newHead, node)
 	}
