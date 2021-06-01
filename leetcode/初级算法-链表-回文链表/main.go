@@ -1,23 +1,23 @@
 package main
 
-import "fmt"
-
 type ListNode struct {
 	Val  int
 	Next *ListNode
 }
 
 func isPalindrome(head *ListNode) bool {
-	len := length(head)
-	fmt.Println(len)
-	return true
-}
-
-func length(head *ListNode) int {
-	len := 0
+	vallist := []int{}
 	for head != nil {
-		len++
+		//把链表转换成切片
+		vallist = append(vallist, head.Val)
 		head = head.Next
 	}
-	return len
+	n := len(vallist)
+	//使用双指针法判断是否为回文
+	for i, v := range vallist[:n/2] {
+		if v != vallist[n-1-i] {
+			return false
+		}
+	}
+	return true
 }
