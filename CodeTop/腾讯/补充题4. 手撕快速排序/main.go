@@ -36,8 +36,29 @@ func sortArray2(nums []int) []int {
 }
 
 ///////////////////// 快速排序法 ///////////////////////////////
-
+func sortArray3(nums []int) []int {
+	if len(nums) <= 1 {
+		return nums
+	}
+	flag := nums[0]
+	left, right := 0, len(nums)-1
+	for i := 1; i <= right; {
+		if nums[i] > flag {
+			nums[i], nums[right] = nums[right], nums[i]
+			right--
+			fmt.Println(nums)
+		} else {
+			nums[i], nums[left] = nums[left], nums[i]
+			i++
+			left++
+			fmt.Println(nums)
+		}
+	}
+	sortArray3(nums[:left])
+	sortArray3(nums[left+1:])
+	return nums
+}
 func main() {
-	nums := []int{5, 1, 1, 2, 0, 0}
-	sortArray2(nums)
+	nums := []int{5, 1, 6, 2, 0, 0}
+	fmt.Println(sortArray3(nums))
 }

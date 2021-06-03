@@ -21,6 +21,9 @@ import "fmt"
 //}
 
 func QuickSort(intList []int) {
+	if len(intList) <= 1 {
+		return
+	}
 	flag := intList[0]
 	left, right := 0, len(intList)-1
 	for i := 1; i <= right; {
